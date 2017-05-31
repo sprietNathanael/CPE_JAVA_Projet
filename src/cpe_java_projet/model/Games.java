@@ -14,17 +14,17 @@ public interface Games  {
 
 	
 	/**
-	 * @param x
-	 * @param y
+	 * @param x abscisse de la case
+	 * @param y ordonnée de la case
 	 * @return true si une pièce se trouve aux coordonnées indiquées
 	 */
 	public boolean isPieceHere(int x, int y) ;
 
 	/**
-	 * @param xInit
-	 * @param yInit
-	 * @param xFinal
-	 * @param yFinal
+	 * @param xInit abscisse de la case de départ
+	 * @param yInit ordonnée de la case de départ
+	 * @param xFinal abscisse de la case d'arrivée
+	 * @param yFinal ordonnée de la case d'arrivée
 	 * @return true si  piece du jeu peut être déplacée aux coordonnées finales,
 	 *  false sinon
 	 */
@@ -32,18 +32,18 @@ public interface Games  {
 			boolean isCastlingPossible);
 
 	/**
-	 * @param xInit
-	 * @param yInit
-	 * @param xFinal
-	 * @param yFinal
+	 * @param xInit abscisse de la case de départ
+	 * @param yInit ordonnée de la case de départ
+	 * @param xFinal abscisse de la case d'arrivée
+	 * @param yFinal ordonnée de la case d'arrivée
 	 * @return true si déplacement pièce effectué
 	 */
 	public boolean move(int xInit, int yInit, int xFinal, int yFinal) ;
 
 
 	/**
-	 * @param xCatch
-	 * @param yCatch
+	 * @param xCatch abscisse de la pièce à capturer
+	 * @param yCatch ordonnée de la pièce à capturer
 	 * @return true si la piece aux coordonnées finales
 	 * a été capturée
 	 */
