@@ -17,6 +17,9 @@ public class Fou extends AbstractPiece{
 
     @Override
     public boolean isMoveOk(int xFinal, int yFinal, boolean isCatchOk, boolean isCastlingPossible) {
+        if (this.coord.x == xFinal && this.coord.y == yFinal) {
+            return false;
+        }
         return Math.abs(this.getX() - xFinal) == Math.abs(this.getY() - yFinal);
     }
 }
