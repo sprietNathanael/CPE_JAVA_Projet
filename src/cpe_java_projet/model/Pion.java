@@ -38,14 +38,14 @@ public class Pion extends AbstractPiece{
         int deltaY = yFinal - this.coord.y;
         if(deltaX == 0 && (this.firstMove && Math.abs(deltaY) == 2 || Math.abs(deltaY) == 1))
         {
-            if((this.couleur == Couleur.BLANC && deltaY > 0) || (this.couleur == Couleur.NOIR && deltaY < 0))
+            if((this.couleur == Couleur.NOIR && deltaY > 0) || (this.couleur == Couleur.BLANC && deltaY < 0))
             {
                 return true;                
             }
         }
         else if(isCatchOk && (Math.abs(deltaY) == 1 && Math.abs(deltaX) == 1))
         {
-            if((this.couleur == Couleur.BLANC && deltaY > 0) || (this.couleur == Couleur.NOIR && deltaY < 0))
+            if((this.couleur == Couleur.NOIR && deltaY > 0) || (this.couleur == Couleur.BLANC && deltaY < 0))
             {
                 return true;
             }

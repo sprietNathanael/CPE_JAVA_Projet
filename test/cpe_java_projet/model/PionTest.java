@@ -49,7 +49,7 @@ public class PionTest {
         int yFinal = 5;
         boolean isCatchOk = false;
         boolean isCastlingPossible = false;
-        Pion instance = new Pion(Couleur.BLANC, new Coord(xFinal, yFinal));
+        Pion instance = new Pion(Couleur.NOIR, new Coord(xFinal, yFinal));
         ArrayList<Boolean> expResult = new ArrayList();
         ArrayList<Boolean> result = new ArrayList();
         expResult.add(true);
