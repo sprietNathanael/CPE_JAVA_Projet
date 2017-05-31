@@ -36,13 +36,19 @@ public class Pion extends AbstractPiece{
     public boolean isMoveOk(int xFinal, int yFinal, boolean isCatchOk, boolean isCastlingPossible) {
         int deltaX = xFinal - this.coord.x;
         int deltaY = yFinal - this.coord.y;
-        if(deltaX == 0 && (this.firstMove && deltaY == 2 || deltaY == 1))
+        if(deltaX == 0 && (this.firstMove && Math.abs(deltaY) == 2 || Math.abs(deltaY) == 1))
         {
-            return true;                
+            if((this.couleur == Couleur.BLANC && deltaY > 0) || (this.couleur == Couleur.NOIR && deltaY < 0))
+            {
+                return true;                
+            }
         }
-        else if(isCatchOk && (deltaY == 1 && Math.abs(deltaX) == 1))
+        else if(isCatchOk && (Math.abs(deltaY) == 1 && Math.abs(deltaX) == 1))
         {
-            return true;
+            if((this.couleur == Couleur.BLANC && deltaY > 0) || (this.couleur == Couleur.NOIR && deltaY < 0))
+            {
+                return true;
+            }
         }            
         return false;
     }
