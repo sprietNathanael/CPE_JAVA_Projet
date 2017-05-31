@@ -13,7 +13,6 @@ public class Tour extends AbstractPiece{
 
     public Tour(Couleur couleur, Coord coord) {
         super(couleur, coord);
-        this.name = this.getClass().getSimpleName();
     }
 
     @Override
