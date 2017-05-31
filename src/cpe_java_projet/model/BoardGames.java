@@ -8,7 +8,7 @@ package cpe_java_projet.model;
  * des jeux de plateaux
  *
  */
-public interface BoardGames extends Games{	
+public interface BoardGames{	
 
 	/**
 	 * Permet de deplacer une piece connaissant ses coordonnees initiales 
