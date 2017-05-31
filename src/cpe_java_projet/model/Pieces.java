@@ -10,7 +10,7 @@ package cpe_java_projet.model;
  * @author nathanael
  */
 public interface Pieces {
-    public boolean caputre();
+    public boolean capture();
     
     public Couleur getCouleur();
     

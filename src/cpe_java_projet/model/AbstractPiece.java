@@ -41,7 +41,7 @@ public abstract class AbstractPiece implements Pieces{
     }
 
     @Override
-    public boolean caputre() {
+    public boolean capture() {
         this.coord.x = -1;
         this.coord.y = -1;
         return true;
