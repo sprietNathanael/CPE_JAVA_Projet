@@ -49,8 +49,8 @@ public class TourTest {
         boolean isCatchOk = false;
         boolean isCastlingPossible = false;
         Tour instance = new Tour(Couleur.NOIR, new Coord(xFinal, yFinal));
-        ArrayList<Boolean> expResult = new ArrayList();
-        ArrayList<Boolean> result = new ArrayList();
+        ArrayList<Boolean> expResult = new ArrayList<>();
+        ArrayList<Boolean> result = new ArrayList<>();
         expResult.add(true);
         result.add(instance.isMoveOk(8, 5, isCatchOk, isCastlingPossible));
         expResult.add(true);
