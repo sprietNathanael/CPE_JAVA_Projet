@@ -41,7 +41,8 @@ public class ChessPiecesFactory {
                 if (pieceCouleur.equals(ChessPiecePos.values()[i].couleur)) {
                     for (int j = 0; j < (ChessPiecePos.values()[i].coords).length; j++) {
                         String className = "cpe_java_projet.model." + ChessPiecePos.values()[i].nom;	// attention au chemin
-                        Coord pieceCoord = ChessPiecePos.values()[i].coords[j];
+                        //Coord pieceCoord = ChessPiecePos.values()[i].coords[j];
+                        Coord pieceCoord = new Coord(ChessPiecePos.values()[i].coords[j].x,ChessPiecePos.values()[i].coords[j].y);
                         pieces.add((Pieces) Introspection.newInstance (className,
                                 new Object[] {pieceCouleur, pieceCoord}));
                     }
