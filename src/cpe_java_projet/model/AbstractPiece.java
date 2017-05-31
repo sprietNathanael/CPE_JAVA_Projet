@@ -10,5 +10,28 @@ package cpe_java_projet.model;
  * @author nathanael
  */
 public abstract class AbstractPiece implements Pieces{
-    
+ 
+    protected Coord coord;
+    protected Couleur couleur;
+    protected String name;
+
+    public AbstractPiece(Couleur couleur, Coord coord) {
+        this.couleur = couleur;
+        this.coord = coord;
+    }
+
+    @Override
+    public Couleur getCouleur() {
+        return this.couleur;
+    }
+
+    @Override
+    public int getX() {
+        return this.coord.x;
+    }
+
+    @Override
+    public int getY() {
+        return this.coord.y;
+    }
 }
