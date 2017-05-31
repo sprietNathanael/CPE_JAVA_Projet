@@ -6,6 +6,7 @@
 package cpe_java_projet.model;
 
 import cpe_java_projet.tools.ChessPiecesFactory;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -18,6 +19,7 @@ public class Jeu implements Games{
     private List<Pieces> piecesListe;
     private boolean castling;
     private boolean possibleCapture;
+    
     public Jeu(Couleur couleur)
     {
         this.couleur = couleur;
@@ -52,15 +54,25 @@ public class Jeu implements Games{
         return null;
     }
     
-    public PieceIHM getPieceIHM()
+    public List<PieceIHM> getPieceIHM()
     {
-        // TODO
-        throw new UnsupportedOperationException("Not supported yet.");
+        PieceIHM newPieceIHM = null;
+        List<PieceIHM> list = new LinkedList<PieceIHM>();
+        
+        for(Pieces piece : this.piecesListe)
+        {
+            if(piece.getX() != -1)
+            {
+                newPieceIHM = new PieceIHM(piece);
+                list.add(newPieceIHM);
+            }
+        }
+        return list;
     }
     
     
     
-    private Pieces getPiece(int x, int y)
+    public Pieces getPiece(int x, int y)
     {
         for(Pieces piece : this.piecesListe) {
             if(piece.getX() == x && piece.getY() == y)
@@ -117,7 +129,7 @@ public class Jeu implements Games{
     public boolean capture(int xCatch, int yCatch) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
-    
+        
 }
+
+
