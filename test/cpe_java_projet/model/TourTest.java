@@ -5,6 +5,7 @@
  */
 package cpe_java_projet.model;
 
+import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -40,7 +41,7 @@ public class TourTest {
     /**
      * Test of isMoveOk method, of class Tour.
      */
-    /*@Test
+    @Test
     public void testIsMoveOk() {
         System.out.println("isMoveOk");
         int xFinal = 5;
@@ -48,12 +49,18 @@ public class TourTest {
         boolean isCatchOk = false;
         boolean isCastlingPossible = false;
         Tour instance = new Tour(Couleur.NOIR, new Coord(xFinal, yFinal));
-        boolean expResult = false;
-        boolean result = instance.isMoveOk(xFinal, yFinal, isCatchOk, isCastlingPossible);
+        ArrayList<Boolean> expResult = new ArrayList();
+        ArrayList<Boolean> result = new ArrayList();
+        expResult.add(true);
+        result.add(instance.isMoveOk(8, 5, isCatchOk, isCastlingPossible));
+        expResult.add(true);
+        result.add(instance.isMoveOk(5, 8, isCatchOk, isCastlingPossible));
+        expResult.add(false);
+        result.add(instance.isMoveOk(5, 5, isCatchOk, isCastlingPossible));
+        expResult.add(false);
+        result.add(instance.isMoveOk(8, 8, isCatchOk, isCastlingPossible));
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }*/
+    }
     
     /**
      * Test of toString method, of class Tour.
@@ -122,6 +129,21 @@ public class TourTest {
         Tour instance = new Tour(Couleur.NOIR, new Coord(xFinal, yFinal));
         String expResult = "Tour";
         String result = instance.getName();
+        assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test of capture method, of class Tour.
+     */
+    @Test
+    public void testCapture() {
+        System.out.println("capture");
+        int xFinal = 5;
+        int yFinal = 5;
+        Tour instance = new Tour(Couleur.NOIR, new Coord(xFinal, yFinal));
+        instance.capture();
+        Coord expResult = new Coord(-1, -1);
+        Coord result = new Coord(instance.getX(),instance.getY());
         assertEquals(expResult, result);
     }
 
