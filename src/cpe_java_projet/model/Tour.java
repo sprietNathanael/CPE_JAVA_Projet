@@ -17,6 +17,17 @@ public class Tour extends AbstractPiece{
 
     @Override
     public boolean isMoveOk(int xFinal, int yFinal, boolean isCatchOk, boolean isCastlingPossible) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int deltaX = xFinal - this.coord.x;
+        int deltaY = yFinal - this.coord.y;
+        if(Math.abs(deltaX) > 0 && deltaY == 0)
+        {
+            return true;
+        }
+        else if(Math.abs(deltaY) > 0 && deltaX == 0)
+        {
+            return true;
+        }
+        return false;
     }
+    
 }
