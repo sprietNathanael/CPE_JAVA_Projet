@@ -34,4 +34,35 @@ public abstract class AbstractPiece implements Pieces{
     public int getY() {
         return this.coord.y;
     }
+
+    @Override
+    public String toString() {
+        return this.name+" : "+this.coord;
+    }
+
+    @Override
+    public boolean caputre() {
+        this.coord.x = -1;
+        this.coord.y = -1;
+        return true;
+    }
+
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
+    public boolean move(int xFinal, int yFinal) {
+        this.coord.x = xFinal;
+        this.coord.y = yFinal;
+        return true;
+    }
+
+    @Override
+    public abstract boolean isMoveOk(int xFinal, int yFinal, boolean isCatchOk, boolean isCastlingPossible);
+    
+    
+    
+    
 }
