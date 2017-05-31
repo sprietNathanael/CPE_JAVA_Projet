@@ -10,5 +10,14 @@ package cpe_java_projet.model;
  * @author nathanael
  */
 public class Tour extends AbstractPiece{
-    
+
+    public Tour(Couleur couleur, Coord coord) {
+        super(couleur, coord);
+        this.name = this.getClass().getSimpleName();
+    }
+
+    @Override
+    public boolean isMoveOk(int xFinal, int yFinal, boolean isCatchOk, boolean isCastlingPossible) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
