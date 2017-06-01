@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import cpe_java_projet.model.Couleur;
+import java.nio.file.Paths;
 
 /**
  * @author francoise.perrin
@@ -43,7 +44,7 @@ public class ChessImageProvider {
 		key = pieceType + pieceCouleur.name();
 		value = mapImage.get(key);
 		File g=new File("");
-		ret = g.getAbsolutePath()+"\\images\\" + value;
+		ret = Paths.get(g.getAbsolutePath()+"/images/" + value).toString();
 		return ret;		
 	}
 
