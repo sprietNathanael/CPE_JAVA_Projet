@@ -72,7 +72,7 @@ public class Jeu implements Games{
     
     
     
-    public Pieces getPiece(int x, int y)
+    private Pieces getPiece(int x, int y)
     {
         for(Pieces piece : this.piecesListe) {
             if(piece.getX() == x && piece.getY() == y)
@@ -131,8 +131,14 @@ public class Jeu implements Games{
     }
 
     @Override
-    public boolean capture(int xCatch, int yCatch) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean capture(int xCatch, int yCatch)
+    {
+        Pieces piece = this.getPiece(xCatch, yCatch);
+        if(piece != null)
+        {
+            return(piece.capture());
+        }
+        return false;
     }
         
 }

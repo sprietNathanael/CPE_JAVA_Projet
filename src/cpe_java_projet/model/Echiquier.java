@@ -54,7 +54,15 @@ public class Echiquier implements BoardGames{
 
     @Override
     public boolean move(int xInit, int yInit, int xFinal, int yFinal) {
-        return jeuCourant.move(xInit, yInit, xFinal,yFinal);
+        if(jeuCourant.move(xInit, yInit, xFinal,yFinal))
+        {
+            if(jeuNonCourant.isPieceHere(xFinal, yFinal))
+            {
+                jeuNonCourant.capture(xFinal, yFinal);
+            }
+            return true;
+        }
+        return false;
     }
 
     @Override
