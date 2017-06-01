@@ -47,6 +47,9 @@ public class ChessGameCmdLine implements Observer{
 
 			Couleur color = pieceIHM.getCouleur();
 			String stColor = (Couleur.BLANC == color ? "B_" : "\u001B[31mN_" );
+			if(chessGameControler.isPlayerOK(new Coord(pieceIHM.getX(), pieceIHM.getY()))) {
+			    stColor = "\033[1m" + stColor;
+            }
 			String type = (pieceIHM.getNamePiece()).substring(0, 2);
 			
 			
