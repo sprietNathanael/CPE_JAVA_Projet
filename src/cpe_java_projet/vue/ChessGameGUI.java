@@ -6,6 +6,7 @@
 package cpe_java_projet.vue;
 
 import cpe_java_projet.controleur.ChessGameControlers;
+import cpe_java_projet.model.Coord;
 import cpe_java_projet.model.Couleur;
 import cpe_java_projet.model.PieceIHM;
 import cpe_java_projet.tools.ChessImageProvider;
@@ -33,15 +34,19 @@ import javax.swing.JPanel;
  */
 public class ChessGameGUI extends JFrame implements java.util.Observer, MouseListener, MouseMotionListener{
     
-    JPanel chessBoard;
-    JLayeredPane layeredPane;
-    JLabel chessPiece;
+    private JPanel chessBoard;
+    private JLayeredPane layeredPane;
+    private JLabel chessPiece;
     
-    int xAdjustment;
-    int yAdjustment;
-
+    private int xAdjustment;
+    private int yAdjustment;
+    private Coord currentCoordinates;
+    private ChessGameControlers chessGameControler;
+    
     public ChessGameGUI(String jeu_déchec, ChessGameControlers chessGameControler, Dimension dim)
     {
+        
+        this.chessGameControler = chessGameControler;
         //  Use a Layered Pane for this this application
  
         layeredPane = new JLayeredPane();
@@ -69,10 +74,17 @@ public class ChessGameGUI extends JFrame implements java.util.Observer, MouseLis
             else
                 square.setBackground( i % 2 == 0 ? Color.white : Color.black );
         }
-        
-        
-        
-        
+    }
+    
+    public int getComponentIndex(Component component) {
+        if (component != null && component.getParent() != null) {
+            Container c = component.getParent();
+            for (int i = 0; i < c.getComponentCount(); i++) {
+                if (c.getComponent(i) == component)
+                return i;
+            }
+        }
+        return -1;
     }
 
     @Override
@@ -88,6 +100,7 @@ public class ChessGameGUI extends JFrame implements java.util.Observer, MouseLis
         {
             piece = new JLabel( new ImageIcon(ChessImageProvider.getImageFile(pieceIHM.getNamePiece(), pieceIHM.getCouleur())) );
             panel = (JPanel)chessBoard.getComponent((pieceIHM.getY()*8)+pieceIHM.getX());
+            panel.removeAll();
             panel.add(piece);
         }
     }
@@ -99,6 +112,7 @@ public class ChessGameGUI extends JFrame implements java.util.Observer, MouseLis
     @Override
     public void mousePressed(MouseEvent e) {
         chessPiece = null;
+        this.currentCoordinates = null;
         Component c =  chessBoard.findComponentAt(e.getX(), e.getY());
  
         if (c instanceof JPanel) 
@@ -107,30 +121,34 @@ public class ChessGameGUI extends JFrame implements java.util.Observer, MouseLis
         Point parentLocation = c.getParent().getLocation();
         xAdjustment = parentLocation.x - e.getX();
         yAdjustment = parentLocation.y - e.getY();
-        chessPiece = (JLabel)c;
-        chessPiece.setLocation(e.getX() + xAdjustment, e.getY() + yAdjustment);
-        chessPiece.setSize(chessPiece.getWidth(), chessPiece.getHeight());
-        layeredPane.add(chessPiece, JLayeredPane.DRAG_LAYER);
+        int componentIndex = getComponentIndex(c.getParent());
+        int y = (int) (componentIndex / 8);
+        int x = componentIndex - (y*8);
+        Coord coordinates = new Coord(x,y);
+        if(this.chessGameControler.isPlayerOK(coordinates))
+        {
+            this.currentCoordinates = coordinates;
+            chessPiece = (JLabel)c;
+            chessPiece.setLocation(e.getX() + xAdjustment, e.getY() + yAdjustment);
+            chessPiece.setSize(chessPiece.getWidth(), chessPiece.getHeight());
+            layeredPane.add(chessPiece, JLayeredPane.DRAG_LAYER);
+        }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
         if(chessPiece == null) return;
- 
+        
         chessPiece.setVisible(false);
         Component c =  chessBoard.findComponentAt(e.getX(), e.getY());
- 
-        if (c instanceof JLabel){
-            Container parent = c.getParent();
-            parent.remove(0);
-            parent.add( chessPiece );
-        }
-        else {
-            Container parent = (Container)c;
-            parent.add( chessPiece );
-        }
- 
-        chessPiece.setVisible(true);
+        
+        int componentIndex = getComponentIndex(c);
+        int y = (int) (componentIndex / 8);
+        int x = componentIndex - (y*8);
+        Coord coordinates = new Coord(x,y);
+        this.chessGameControler.move(this.currentCoordinates, coordinates);
+        chessPiece = null;
+        this.currentCoordinates = null;
     }
 
     @Override
