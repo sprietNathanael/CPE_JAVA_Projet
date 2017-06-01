@@ -40,7 +40,9 @@ public class Echiquier implements BoardGames{
     }
 
     public boolean isMoveOk(int xInit, int yInit, int xFinal, int yFinal) {
-        return jeuCourant.isMoveOk(xInit, yInit,xFinal,yFinal, false, false);
+        boolean res = jeuCourant.isMoveOk(xInit, yInit,xFinal,yFinal, false, false);
+        this.setMessage(res ? "OK" : "NOPE");
+        return res;
     }
 
     public List<PieceIHMs> getPiecesIHM() {
@@ -72,7 +74,7 @@ public class Echiquier implements BoardGames{
 
     @Override
     public Couleur getPieceColor(int x, int y) {
-        return null;
+        return this.jeuCourant.getPieceCouleur(x, y);
     }
 
     @Override
