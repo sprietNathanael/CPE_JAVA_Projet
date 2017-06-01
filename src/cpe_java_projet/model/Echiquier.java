@@ -40,7 +40,8 @@ public class Echiquier implements BoardGames{
     }
 
     public boolean isMoveOk(int xInit, int yInit, int xFinal, int yFinal) {
-        boolean res = jeuCourant.isMoveOk(xInit, yInit,xFinal,yFinal, false, false);
+        boolean capture = this.isPieceTargetIsAdverse(xFinal, yFinal);
+        boolean res = jeuCourant.isMoveOk(xInit, yInit,xFinal,yFinal, capture, false);
         this.setMessage(res ? "OK" : "NOPE");
         return res;
     }
@@ -56,7 +57,7 @@ public class Echiquier implements BoardGames{
     public boolean move(int xInit, int yInit, int xFinal, int yFinal) {
         if(jeuCourant.move(xInit, yInit, xFinal,yFinal))
         {
-            if(jeuNonCourant.isPieceHere(xFinal, yFinal))
+            if(isPieceTargetIsAdverse(xFinal, yFinal))
             {
                 jeuNonCourant.capture(xFinal, yFinal);
             }
@@ -92,5 +93,10 @@ public class Echiquier implements BoardGames{
         message += "\n";
         message += jeuNoir;
         return message;
+    }
+    
+    private boolean isPieceTargetIsAdverse(int xFinal,int yFinal)
+    {
+        return jeuNonCourant.isPieceHere(xFinal, yFinal);
     }
 }
