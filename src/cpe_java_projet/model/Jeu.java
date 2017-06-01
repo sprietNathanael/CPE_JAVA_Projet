@@ -96,7 +96,12 @@ public class Jeu implements Games{
         Pieces piece = this.getPiece(xInit, yInit);
         if(piece != null)
         {
-            return piece.isMoveOk(xFinal, yFinal, isCatchOk, isCastlingPossible);
+            Pieces pieceTarget = this.getPiece(xFinal, yFinal);
+            if(pieceTarget == null)
+            {
+                return piece.isMoveOk(xFinal, yFinal, isCatchOk, isCastlingPossible);
+                
+            }
         }
         return false;
     }
