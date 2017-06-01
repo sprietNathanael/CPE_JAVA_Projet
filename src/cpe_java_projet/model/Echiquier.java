@@ -5,10 +5,82 @@
  */
 package cpe_java_projet.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author nathanael
  */
 public class Echiquier implements BoardGames{
-    
+
+    private Jeu jeuNoir;
+    private Jeu jeuBlanc;
+    private Jeu jeuCourant = null;
+    private Jeu jeuNonCourant = null;
+
+    private String message = "";
+
+    public Echiquier() {
+        jeuBlanc = new Jeu(Couleur.BLANC);
+        jeuNoir = new Jeu(Couleur.NOIR);
+
+        jeuCourant = jeuBlanc;
+        jeuNonCourant = jeuNoir;
+    }
+
+    private void setMessage(String message) {
+        this.message = message;
+    }
+
+    public void switchJoueur() {
+        Jeu tmp = jeuCourant;
+        jeuCourant = jeuNonCourant;
+        jeuNonCourant = tmp;
+    }
+
+    public boolean isMoveOk(int xInit, int yInit, int xFinal, int yFinal) {
+        return jeuCourant.isMoveOk(xInit, yInit,xFinal,yFinal, false, false);
+    }
+
+    public List<PieceIHMs> getPiecesIHM() {
+        List<PieceIHMs> pieceIHMs = new ArrayList<>();
+        pieceIHMs.addAll(jeuBlanc.getPieceIHM());
+        pieceIHMs.addAll(jeuNoir.getPieceIHM());
+        return pieceIHMs;
+    }
+
+    @Override
+    public boolean move(int xInit, int yInit, int xFinal, int yFinal) {
+        return jeuCourant.move(xInit, yInit, xFinal,yFinal);
+    }
+
+    @Override
+    public boolean isEnd() {
+        return false;
+    }
+
+    @Override
+    public String getMessage() {
+        return message;
+    }
+
+    @Override
+    public Couleur getColorCurrentPlayer() {
+        return jeuCourant.getCouleur();
+    }
+
+    @Override
+    public Couleur getPieceColor(int x, int y) {
+        return null;
+    }
+
+    @Override
+    public String toString() {
+        String message = "";
+        message += jeuBlanc;
+        message += "\n";
+        message += jeuNoir;
+        return message;
+    }
 }
