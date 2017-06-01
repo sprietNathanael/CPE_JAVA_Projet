@@ -141,11 +141,16 @@ public class ChessGameGUI extends JFrame implements java.util.Observer, MouseLis
         
         chessPiece.setVisible(false);
         Component c =  chessBoard.findComponentAt(e.getX(), e.getY());
-        
-        int componentIndex = getComponentIndex(c);
-        int y = (int) (componentIndex / 8);
-        int x = componentIndex - (y*8);
-        Coord coordinates = new Coord(x,y);
+
+        int componentIndex;
+        if (c instanceof JLabel) {
+            componentIndex = getComponentIndex(c.getParent());
+        } else {
+            componentIndex = getComponentIndex(c);
+        }
+        int y = componentIndex / 8;
+        int x = componentIndex - (y * 8);
+        Coord coordinates = new Coord(x, y);
         this.chessGameControler.move(this.currentCoordinates, coordinates);
         chessPiece = null;
         this.currentCoordinates = null;
