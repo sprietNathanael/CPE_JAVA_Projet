@@ -46,7 +46,7 @@ public class ChessGameCmdLine implements Observer{
 		for(PieceIHM pieceIHM : piecesIHM) {
 
 			Couleur color = pieceIHM.getCouleur();
-			String stColor = (Couleur.BLANC == color ? "B_" : "N_" );
+			String stColor = (Couleur.BLANC == color ? "B_" : "\u001B[31mN_" );
 			String type = (pieceIHM.getNamePiece()).substring(0, 2);
 			
 			
@@ -61,7 +61,7 @@ public class ChessGameCmdLine implements Observer{
 			for ( int j = 0; j < 8; j++) {				 
 				String nomPiece = damier[i][j];				
 				if (nomPiece != null) {						
-					st += nomPiece + "  ";	
+					st += nomPiece + "\u001B[0m  ";
 				} 
 				else {
 					st += "____  ";
