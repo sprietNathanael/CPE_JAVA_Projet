@@ -42,6 +42,7 @@ public class Echiquier implements BoardGames{
     public boolean isMoveOk(int xInit, int yInit, int xFinal, int yFinal) {
         boolean capture = this.isPieceTargetIsAdverse(xFinal, yFinal);
         boolean res = jeuCourant.isMoveOk(xInit, yInit,xFinal,yFinal, capture, false);
+        res &= !(this.isPieceOnTrajectory(xInit, yInit, xFinal, yFinal));
         this.setMessage(res ? "OK" : "NOPE");
         return res;
     }
@@ -98,5 +99,61 @@ public class Echiquier implements BoardGames{
     private boolean isPieceTargetIsAdverse(int xFinal,int yFinal)
     {
         return jeuNonCourant.isPieceHere(xFinal, yFinal);
+    }
+    
+    private boolean isPieceOnTrajectory(int xInit, int yInit, int xFinal, int yFinal)
+    {
+        boolean res = false;
+        int yStart;
+        int yStop;
+        int xStart;
+        int xStop;
+        if(yInit < yFinal)
+        {
+            yStart = yInit;
+            yStop = yFinal;
+        }
+        else
+        {
+            yStart = yFinal;
+            yStop = yInit;
+        }
+        if(xInit < xFinal)
+        {
+            xStart = xInit;
+            xStop = xFinal;
+        }
+        else
+        {
+            xStart = xFinal;
+            xStop = xInit;
+        }
+        if(xInit == xFinal)
+        {
+            for(int yInc = yStart+1; yInc < yStop; yInc++)
+            {
+                res |= jeuCourant.isPieceHere(xInit, yInc);
+                res |= jeuCourant.isPieceHere(xInit, yInc);
+            }
+        }
+        else if(yInit == yFinal)
+        {
+            for(int xInc = xStart+1; xInc < xStop; xInc++)
+            {
+                res |= jeuCourant.isPieceHere(xInc, yInit);
+                res |= jeuCourant.isPieceHere(xInc, yInit);
+            }
+        }
+        else
+        {
+            int yInc = yStart+1;
+            for(int xInc = xStart+1; xInc < xStop; xInc++)
+            {
+                res |= jeuCourant.isPieceHere(xInc, yInc);
+                res |= jeuCourant.isPieceHere(xInc, yInc);
+                yInc++;
+            }
+        }
+        return res;
     }
 }
