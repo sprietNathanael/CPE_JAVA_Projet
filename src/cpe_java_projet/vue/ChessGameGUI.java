@@ -185,8 +185,8 @@ public class ChessGameGUI extends JFrame implements java.util.Observer, MouseLis
         {
             int componentIndex = currentCoordinate.y*8+currentCoordinate.x;
             JPanel c = (JPanel)chessBoard.getComponent(componentIndex);
-            //c.setBackground(Color.red);
-            c.setBorder(BorderFactory.createLineBorder(Color.RED, 5));
+            c.setBackground(Color.red);
+            //c.setBorder(BorderFactory.createLineBorder(Color.RED, 5));
         }
     }
     
@@ -197,11 +197,11 @@ public class ChessGameGUI extends JFrame implements java.util.Observer, MouseLis
             int componentIndex = currentCoordinate.y*8+currentCoordinate.x;
             JPanel c = (JPanel)chessBoard.getComponent(componentIndex);
             int row = currentCoordinate.y % 2;
-            /*if (row == 0)
+            if (row == 0)
                 c.setBackground( currentCoordinate.x % 2 == 0 ? Color.black : Color.white );
             else
-                c.setBackground( currentCoordinate.x % 2 == 0 ? Color.white : Color.black );*/
-            c.setBorder(BorderFactory.createLineBorder(Color.RED, 0));
+                c.setBackground( currentCoordinate.x % 2 == 0 ? Color.white : Color.black );
+            //c.setBorder(BorderFactory.createLineBorder(Color.RED, 0));
         }
     }
         
