@@ -104,56 +104,111 @@ public class Echiquier implements BoardGames{
     private boolean isPieceOnTrajectory(int xInit, int yInit, int xFinal, int yFinal)
     {
         boolean res = false;
-        int yStart;
-        int yStop;
-        int xStart;
-        int xStop;
-        if(yInit < yFinal)
-        {
-            yStart = yInit;
-            yStop = yFinal;
-        }
-        else
-        {
-            yStart = yFinal;
-            yStop = yInit;
-        }
-        if(xInit < xFinal)
-        {
-            xStart = xInit;
-            xStop = xFinal;
-        }
-        else
-        {
-            xStart = xFinal;
-            xStop = xInit;
-        }
+        
         if(xInit == xFinal)
         {
-            for(int yInc = yStart+1; yInc < yStop; yInc++)
+            if(yInit > yFinal)
             {
-                res |= jeuCourant.isPieceHere(xInit, yInc);
-                res |= jeuCourant.isPieceHere(xInit, yInc);
+                for(int yInc = yInit-1; yInc > yFinal; yInc--)
+                {
+                    res |= jeuCourant.isPieceHere(xInit, yInc);
+                    res |= jeuNonCourant.isPieceHere(xInit, yInc);
+                }
+            }
+            else
+            {
+                for(int yInc = yInit+1; yInc < yFinal; yInc++)
+                {
+                    res |= jeuCourant.isPieceHere(xInit, yInc);
+                    res |= jeuNonCourant.isPieceHere(xInit, yInc);
+                }
             }
         }
         else if(yInit == yFinal)
         {
-            for(int xInc = xStart+1; xInc < xStop; xInc++)
+            if(xInit > xFinal)
             {
-                res |= jeuCourant.isPieceHere(xInc, yInit);
-                res |= jeuCourant.isPieceHere(xInc, yInit);
+                for(int xInc = xInit-1; xInc > xFinal; xInc--)
+                {
+                    res |= jeuCourant.isPieceHere(xInc, yInit);
+                    res |= jeuNonCourant.isPieceHere(xInc, yInit);
+                }
+            }
+            else
+            {
+                for(int xInc = xInit+1; xInc < xFinal; xInc++)
+                {
+                    res |= jeuCourant.isPieceHere(xInc, yInit);
+                    res |= jeuNonCourant.isPieceHere(xInc, yInit);
+                }
             }
         }
         else
         {
-            int yInc = yStart+1;
-            for(int xInc = xStart+1; xInc < xStop; xInc++)
+            if(xInit > xFinal)
             {
-                res |= jeuCourant.isPieceHere(xInc, yInc);
-                res |= jeuCourant.isPieceHere(xInc, yInc);
-                yInc++;
+                if(yInit > yFinal)
+                {
+                    int yInc = yInit-1;
+                    for(int xInc = xInit-1; xInc > xFinal; xInc--)
+                    {
+                        res |= jeuCourant.isPieceHere(xInc, yInc);
+                        res |= jeuNonCourant.isPieceHere(xInc, yInc);
+                        yInc--;
+                    }
+                }
+                else
+                {
+                    int yInc = yInit+1;
+                    for(int xInc = xInit-1; xInc > xFinal; xInc--)
+                    {
+                        res |= jeuCourant.isPieceHere(xInc, yInc);
+                        res |= jeuNonCourant.isPieceHere(xInc, yInc);
+                        yInc++;
+                    }
+                }
+            }
+            else
+            {
+                if(yInit > yFinal)
+                {
+                    int yInc = yInit-1;
+                    for(int xInc = xInit+1; xInc < xFinal; xInc++)
+                    {
+                        res |= jeuCourant.isPieceHere(xInc, yInc);
+                        res |= jeuNonCourant.isPieceHere(xInc, yInc);
+                        yInc--;
+                    }
+                }
+                else
+                {
+                    int yInc = yInit+1;
+                    for(int xInc = xInit+1; xInc < xFinal; xInc++)
+                    {
+                        res |= jeuCourant.isPieceHere(xInc, yInc);
+                        res |= jeuNonCourant.isPieceHere(xInc, yInc);
+                        yInc++;
+                    }
+                }
             }
         }
         return res;
+        
+    }
+
+    @Override
+    public List<Coord> getPossibleMove(int x, int y) {
+        List<Coord> coordinates = new ArrayList<>();
+        for(int xInc = 0; xInc < 8; xInc++)
+        {
+            for(int yInc = 0; yInc < 8; yInc++)
+            {
+                if(this.isMoveOk(x, y, xInc, yInc))
+                {
+                    coordinates.add(new Coord(xInc, yInc));
+                }
+            }
+        }
+        return coordinates;
     }
 }

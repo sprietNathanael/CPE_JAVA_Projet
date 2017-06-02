@@ -7,16 +7,27 @@ package cpe_java_projet.vue;
 
 import cpe_java_projet.controleur.ChessGameControlers;
 import cpe_java_projet.model.Coord;
+import cpe_java_projet.model.Couleur;
 import cpe_java_projet.model.PieceIHM;
 import cpe_java_projet.tools.ChessImageProvider;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.List;
 import java.util.Observable;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
 
 /**
  *
@@ -32,6 +43,7 @@ public class ChessGameGUI extends JFrame implements java.util.Observer, MouseLis
     private int yAdjustment;
     private Coord currentCoordinates;
     private ChessGameControlers chessGameControler;
+    private List<Coord> possibleMoves;
     
     public ChessGameGUI(String jeu_déchec, ChessGameControlers chessGameControler, Dimension dim)
     {
@@ -123,6 +135,8 @@ public class ChessGameGUI extends JFrame implements java.util.Observer, MouseLis
             chessPiece.setSize(chessPiece.getWidth(), chessPiece.getHeight());
             layeredPane.add(chessPiece, JLayeredPane.DRAG_LAYER);
         }
+        possibleMoves = this.chessGameControler.getPossibleMove(coordinates);
+        displayPossibleMove(possibleMoves);
     }
 
     @Override
@@ -144,6 +158,7 @@ public class ChessGameGUI extends JFrame implements java.util.Observer, MouseLis
         this.chessGameControler.move(this.currentCoordinates, coordinates);
         chessPiece = null;
         this.currentCoordinates = null;
+        this.cleanPossibleMove(this.possibleMoves);
     }
 
     @Override
@@ -164,4 +179,30 @@ public class ChessGameGUI extends JFrame implements java.util.Observer, MouseLis
     public void mouseMoved(MouseEvent e) {
     }
     
+    private void displayPossibleMove(List<Coord> coordinates)
+    {
+        for(Coord currentCoordinate : coordinates)
+        {
+            int componentIndex = currentCoordinate.y*8+currentCoordinate.x;
+            JPanel c = (JPanel)chessBoard.getComponent(componentIndex);
+            c.setBackground(Color.red);
+            //c.setBorder(BorderFactory.createLineBorder(Color.RED, 5));
+        }
+    }
+    
+    private void cleanPossibleMove(List<Coord> coordinates)
+    {
+        for(Coord currentCoordinate : coordinates)
+        {
+            int componentIndex = currentCoordinate.y*8+currentCoordinate.x;
+            JPanel c = (JPanel)chessBoard.getComponent(componentIndex);
+            int row = currentCoordinate.y % 2;
+            if (row == 0)
+                c.setBackground( currentCoordinate.x % 2 == 0 ? Color.black : Color.white );
+            else
+                c.setBackground( currentCoordinate.x % 2 == 0 ? Color.white : Color.black );
+            //c.setBorder(BorderFactory.createLineBorder(Color.RED, 0));
+        }
+    }
+        
 }
