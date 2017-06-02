@@ -111,7 +111,14 @@ public class Jeu implements Games{
         Pieces piece = this.getPiece(xInit, yInit);
         if(piece != null)
         {
-            return piece.move(xFinal, yFinal);
+            boolean res = piece.move(xFinal, yFinal);
+            if(res && (piece instanceof Pion) && (yFinal == 0 || yFinal == 7))
+            {
+                Pieces inter = new Reine(piece.getCouleur(), new Coord(piece.getX(),piece.getY()));
+                int index = this.piecesListe.indexOf(piece);
+                this.piecesListe.set(index, inter);
+            }                
+            return res;
         }
         return false;
     }
