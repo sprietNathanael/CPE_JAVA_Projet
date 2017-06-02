@@ -7,26 +7,16 @@ package cpe_java_projet.vue;
 
 import cpe_java_projet.controleur.ChessGameControlers;
 import cpe_java_projet.model.Coord;
-import cpe_java_projet.model.Couleur;
 import cpe_java_projet.model.PieceIHM;
 import cpe_java_projet.tools.ChessImageProvider;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.Point;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.List;
 import java.util.Observable;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
-import javax.swing.JPanel;
 
 /**
  *

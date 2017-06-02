@@ -18,13 +18,14 @@ public class SocketSender_Client{
 
     private static ObjectOutputStream socket_out;
     public SocketSender_Client(ObjectOutputStream out) {
-        this.socket_out = out;
+        socket_out = out;
     }
     
     public void send(Object objectToSend)
     {
         try {
-            this.socket_out.writeObject(objectToSend);
+            socket_out.writeObject(objectToSend);
+            socket_out.reset();
         } catch (IOException ex) {
             Logger.getLogger(SocketSender_Client.class.getName()).log(Level.SEVERE, null, ex);
         }

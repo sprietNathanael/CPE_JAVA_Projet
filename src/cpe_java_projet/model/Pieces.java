@@ -5,11 +5,13 @@
  */
 package cpe_java_projet.model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author nathanael
  */
-public interface Pieces {
+public interface Pieces extends Serializable {
     public boolean capture();
     
     public Couleur getCouleur();

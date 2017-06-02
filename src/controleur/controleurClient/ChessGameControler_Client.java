@@ -5,14 +5,13 @@
  */
 package controleur.controleurClient;
 
-import cpe_java_projet.controleur.AbstractChessGameControler;
 import cpe_java_projet.controleur.ChessGameControlers;
 import cpe_java_projet.model.Coord;
-import cpe_java_projet.model.observable.ChessGame;
+import socket.socketClient.SocketSender_Client;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import socket.socketClient.SocketSender_Client;
 
 /**
  *
@@ -30,6 +29,7 @@ public class ChessGameControler_Client implements ChessGameControlers{
     @Override
     public boolean move(Coord initCoord, Coord finalCoord) {
         List<Coord> liste = new ArrayList<Coord>(Arrays.asList(initCoord,finalCoord));
+        System.out.println("move " + liste);
         this.socket_sender.send(liste);
         return false;
     }
@@ -42,8 +42,9 @@ public class ChessGameControler_Client implements ChessGameControlers{
 
     @Override
     public boolean isPlayerOK(Coord initCoord) {
+        System.out.println("isPlayerOk " + initCoord);
         this.socket_sender.send(initCoord);
-        return false;
+        return true;
     }
 
     @Override

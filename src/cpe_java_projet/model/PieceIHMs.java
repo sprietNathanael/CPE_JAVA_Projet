@@ -3,14 +3,14 @@
  */
 package cpe_java_projet.model;
 
-import cpe_java_projet.model.Couleur;
+import java.io.Serializable;
 
 /**
  * @author francoise.perrin
  * Cette interface permet de réduire l'interface de Pieces  
  * en ne donnant que des getters
  */
-public interface PieceIHMs {
+public interface PieceIHMs extends Serializable {
 	
 	/**
 	 * @return indice de la colonne où est positionnée la piece

@@ -7,22 +7,18 @@ package launcher.clientLauncher;
 
 import controleur.controleurClient.ChessGameControler_Client;
 import cpe_java_projet.controleur.ChessGameControlers;
-import cpe_java_projet.controleur.controleurLocal.ChessGameControler;
-import cpe_java_projet.model.observable.ChessGame;
 import cpe_java_projet.vue.ChessGameGUI;
-import java.awt.Dimension;
-import java.io.BufferedReader;
+import socket.socketClient.SocketReceiver_Client;
+import socket.socketClient.SocketSender_Client;
+
+import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Observer;
 import java.util.Scanner;
-import javax.swing.JFrame;
-import socket.socketClient.SocketReceiver_Client;
-import socket.socketClient.SocketSender_Client;
 
 /**
  *
@@ -52,12 +48,9 @@ public class LauncherGUI_Client {
             sc = new Scanner(System.in);
 
             sender = new SocketSender_Client(out);
-            receiver = new SocketReceiver_Client(socket);
-            Thread receiver_thread = new Thread(receiver);
-            receiver_thread.start();
-            
+
             ChessGameControlers chessGameControler_Client;
-            JFrame frame;	
+            JFrame frame;
             Dimension dim;
 
             dim = new Dimension(800, 800);
@@ -65,12 +58,17 @@ public class LauncherGUI_Client {
             chessGameControler_Client = new ChessGameControler_Client(sender);
 
             frame = new ChessGameGUI("Jeu d'échec", chessGameControler_Client,  dim);
-            //receiver.addObserver((Observer) frame);
+            receiver = new SocketReceiver_Client(socket);
+            receiver.addObserver((Observer) frame);
+
 
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setLocation(600, 10);
             frame.pack();
             frame.setVisible(true);
+
+            Thread receiver_thread = new Thread(receiver);
+            receiver_thread.start();
         } catch (UnknownHostException e) {
                 System.err.println("Impossible de se connecter à l'adresse "+socket.getLocalAddress());
         } catch (IOException e) {
