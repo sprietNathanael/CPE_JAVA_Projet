@@ -108,4 +108,10 @@ public class ChessGame extends Observable implements BoardGames{
 		super.addObserver(o);
 		this.notifyObservers(echiquier.getPiecesIHM()); 
 	}
+
+        @Override
+        public List<Coord> getPossibleMove(int x, int y)
+        {
+            return this.echiquier.getPossibleMove(x, y);
+        }
 }

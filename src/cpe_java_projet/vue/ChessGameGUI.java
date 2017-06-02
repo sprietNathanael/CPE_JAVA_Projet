@@ -42,6 +42,7 @@ public class ChessGameGUI extends JFrame implements java.util.Observer, MouseLis
     private int yAdjustment;
     private Coord currentCoordinates;
     private ChessGameControlers chessGameControler;
+    private List<Coord> possibleMoves;
     
     public ChessGameGUI(String jeu_déchec, ChessGameControlers chessGameControler, Dimension dim)
     {
@@ -133,6 +134,9 @@ public class ChessGameGUI extends JFrame implements java.util.Observer, MouseLis
             chessPiece.setSize(chessPiece.getWidth(), chessPiece.getHeight());
             layeredPane.add(chessPiece, JLayeredPane.DRAG_LAYER);
         }
+        possibleMoves = this.chessGameControler.getPossibleMove(coordinates);
+        System.out.println(possibleMoves);
+        displayPossibleMove(possibleMoves);
     }
 
     @Override
@@ -154,6 +158,7 @@ public class ChessGameGUI extends JFrame implements java.util.Observer, MouseLis
         this.chessGameControler.move(this.currentCoordinates, coordinates);
         chessPiece = null;
         this.currentCoordinates = null;
+        this.cleanPossibleMove(this.possibleMoves);
     }
 
     @Override
@@ -174,4 +179,28 @@ public class ChessGameGUI extends JFrame implements java.util.Observer, MouseLis
     public void mouseMoved(MouseEvent e) {
     }
     
+    private void displayPossibleMove(List<Coord> coordinates)
+    {
+        for(Coord currentCoordinate : coordinates)
+        {
+            int componentIndex = currentCoordinate.y*8+currentCoordinate.x;
+            Component c = chessBoard.getComponent(componentIndex);
+            c.setBackground(Color.red);
+        }
+    }
+    
+    private void cleanPossibleMove(List<Coord> coordinates)
+    {
+        for(Coord currentCoordinate : coordinates)
+        {
+            int componentIndex = currentCoordinate.y*8+currentCoordinate.x;
+            Component c = chessBoard.getComponent(componentIndex);
+            int row = currentCoordinate.y % 2;
+            if (row == 0)
+                c.setBackground( currentCoordinate.x % 2 == 0 ? Color.black : Color.white );
+            else
+                c.setBackground( currentCoordinate.x % 2 == 0 ? Color.white : Color.black );
+        }
+    }
+        
 }

@@ -3,6 +3,7 @@ package cpe_java_projet.controleur;
 import cpe_java_projet.model.Coord;
 import cpe_java_projet.model.Couleur;
 import cpe_java_projet.model.observable.ChessGame;
+import java.util.List;
 
 
 /**
@@ -61,6 +62,13 @@ public abstract class AbstractChessGameControler implements ChessGameControlers 
 	 * la vue se servira de cette information pour empêcher tout déplacement sur le damier
 	 */
 	public abstract boolean isPlayerOK(Coord initCoord) ;
+        
+        @Override
+        final public List<Coord> getPossibleMove(Coord coordinates)
+        {
+            return this.chessGame.getPossibleMove(coordinates.x, coordinates.y);
+            
+        }
 
 	// Déplacement métier
 	protected  boolean moveModel(Coord initCoord, Coord finalCoord)  {	
@@ -92,5 +100,7 @@ public abstract class AbstractChessGameControler implements ChessGameControlers 
 	protected Couleur getPieceColor(Coord initCoord){		
 		return this.chessGame.getPieceColor(initCoord.x, initCoord.y);		
 	}	
+        
+        
 	
 }

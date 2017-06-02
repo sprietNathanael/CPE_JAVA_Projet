@@ -193,5 +193,22 @@ public class Echiquier implements BoardGames{
             }
         }
         return res;
+        
+    }
+
+    @Override
+    public List<Coord> getPossibleMove(int x, int y) {
+        List<Coord> coordinates = new ArrayList<>();
+        for(int xInc = 0; xInc < 8; xInc++)
+        {
+            for(int yInc = 0; yInc < 8; yInc++)
+            {
+                if(this.isMoveOk(x, y, xInc, yInc))
+                {
+                    coordinates.add(new Coord(xInc, yInc));
+                }
+            }
+        }
+        return coordinates;
     }
 }

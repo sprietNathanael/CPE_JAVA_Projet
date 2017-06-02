@@ -1,6 +1,7 @@
 package cpe_java_projet.controleur;
 
 import cpe_java_projet.model.Coord;
+import java.util.List;
 
 public interface ChessGameControlers {
 
@@ -28,5 +29,7 @@ public interface ChessGameControlers {
 	 * pour empêcher tout déplacement sur le damier
 	 */
 	public boolean isPlayerOK(Coord initCoord);
+
+        public List<Coord> getPossibleMove(Coord coordinates);
 
 }
