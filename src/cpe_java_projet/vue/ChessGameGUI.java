@@ -22,6 +22,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.List;
 import java.util.Observable;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -135,7 +136,6 @@ public class ChessGameGUI extends JFrame implements java.util.Observer, MouseLis
             layeredPane.add(chessPiece, JLayeredPane.DRAG_LAYER);
         }
         possibleMoves = this.chessGameControler.getPossibleMove(coordinates);
-        System.out.println(possibleMoves);
         displayPossibleMove(possibleMoves);
     }
 
@@ -184,8 +184,9 @@ public class ChessGameGUI extends JFrame implements java.util.Observer, MouseLis
         for(Coord currentCoordinate : coordinates)
         {
             int componentIndex = currentCoordinate.y*8+currentCoordinate.x;
-            Component c = chessBoard.getComponent(componentIndex);
-            c.setBackground(Color.red);
+            JPanel c = (JPanel)chessBoard.getComponent(componentIndex);
+            //c.setBackground(Color.red);
+            c.setBorder(BorderFactory.createLineBorder(Color.RED, 5));
         }
     }
     
@@ -194,12 +195,13 @@ public class ChessGameGUI extends JFrame implements java.util.Observer, MouseLis
         for(Coord currentCoordinate : coordinates)
         {
             int componentIndex = currentCoordinate.y*8+currentCoordinate.x;
-            Component c = chessBoard.getComponent(componentIndex);
+            JPanel c = (JPanel)chessBoard.getComponent(componentIndex);
             int row = currentCoordinate.y % 2;
-            if (row == 0)
+            /*if (row == 0)
                 c.setBackground( currentCoordinate.x % 2 == 0 ? Color.black : Color.white );
             else
-                c.setBackground( currentCoordinate.x % 2 == 0 ? Color.white : Color.black );
+                c.setBackground( currentCoordinate.x % 2 == 0 ? Color.white : Color.black );*/
+            c.setBorder(BorderFactory.createLineBorder(Color.RED, 0));
         }
     }
         
